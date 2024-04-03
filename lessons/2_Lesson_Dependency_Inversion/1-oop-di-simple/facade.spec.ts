@@ -21,6 +21,7 @@ class HttpService {
 // ============================
 type User = { id: string; name: string };
 
+// Мы делаем фасад с постоянным интерфейсом
 class UserApi {
   private http = new HttpService();
 
