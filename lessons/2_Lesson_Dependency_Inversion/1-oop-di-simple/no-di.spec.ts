@@ -6,6 +6,7 @@ import { expect, test } from "vitest";
 // =============================
 type UserDto = { id: string; title: string };
 
+// Изменчивый сервис
 class HttpService {
     async get(url: `/user/${string}`): Promise<UserDto>;
     async get(): Promise<unknown> {
@@ -19,30 +20,14 @@ class HttpService {
 // ============================
 // user module
 // =============================
-type User = { id: string; name: string };
-
-// Мы делаем фасад с постоянным интерфейсом
-class UserApi {
-    private http = new HttpService();
-
-    getUser(userId: string): Promise<User> {
-        return this.http
-            .get(`/user/${userId}`)
-            .then((r) => ({ ...r, name: r.title }));
-    }
-}
-
 class UserStore {
-    private api = new UserApi();
-
+    private http = new HttpService();
     public isLoading = false;
-    public user: User | undefined;
-
+    public user: UserDto | undefined;
     async fetchUser(userId: string) {
         this.isLoading = true;
-        const user = await this.api.getUser(userId);
+        this.user = await this.http.get(`/user/${userId}`);
         this.isLoading = false;
-        this.user = user;
     }
 }
 

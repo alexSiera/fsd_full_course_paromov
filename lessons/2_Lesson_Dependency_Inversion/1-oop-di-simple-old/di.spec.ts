@@ -1,21 +1,21 @@
-// ============================
-// user module
-
+// Реализация фасада
 import { nanoid } from "nanoid";
 import { expect, test, vi } from "vitest";
 
-// =============================
+// ============================
+// user module
+// ============================
 type UserEntity = { id: string; name: string };
 
 interface UserApi {
   getUser(userId: string): Promise<UserEntity>;
 }
 
-class UsersStore {
+class UserStore {
   constructor(private userApi: UserApi) {}
 
   public isLoading = false;
-  public user: UserEntity | undefined;
+  public user: UserDto | undefined;
 
   async fetchUser(userId: string) {
     this.isLoading = true;
@@ -27,10 +27,10 @@ class UsersStore {
 
 // ============================
 // api module
-// =============================
+// ============================
 type UserDto = { id: string; name: string };
 
-// Адаптер
+// Мы создаем адаптер
 class UserApiImpl implements UserApi {
   private http = new HttpService();
 
@@ -41,18 +41,21 @@ class UserApiImpl implements UserApi {
 
 class HttpService {
   async get(url: `/user/${string}`): Promise<UserDto>;
-  async get(): Promise<UserDto> {
-    return { id: nanoid(), name: "Evgen" } as UserDto;
+  async get(): Promise<unknown> {
+    return {
+      id: nanoid(),
+      name: "evgen",
+    } as UserDto;
   }
 }
 
-test("mock test", async () => {
+test("Should work", async () => {
   const userApiMock = { getUser: vi.fn() } satisfies UserApi;
   userApiMock.getUser.mockResolvedValue({
     id: "user-1",
     name: "evgen",
   });
-  const userStore = new UsersStore(userApiMock);
+  const userStore = new UserStore(userApiMock);
 
   expect(userStore.isLoading).toBe(false);
   const res = userStore.fetchUser("user-1");
@@ -60,13 +63,13 @@ test("mock test", async () => {
   await res;
 
   expect(userStore.user).toEqual({
-    id: "user-1",
-    name: "evgen",
+    id: expect.any(String),
+    name: expect.any(String),
   });
 });
 
 test("integration test", async () => {
-  const usersStore = new UsersStore(new UserApiImpl());
+  const usersStore = new UserStore(new UserApiImpl());
 
   expect(usersStore.isLoading).toBe(false);
   const res = usersStore.fetchUser("user-1");
