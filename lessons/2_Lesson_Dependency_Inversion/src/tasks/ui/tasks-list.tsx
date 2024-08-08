@@ -1,21 +1,20 @@
-import { TUserSelectSlot } from "../../types";
+import { TaskItem } from "./task-item";
 import { useTasks } from "../model/use-tasks";
 import { CreateTaskForm } from "./create-task-from";
-import { TaskItem } from "./task-item";
-
-type Props = {
-  saveToStorage: (key: string, value: unknown) => void;
-  getFromStorage: <T>(key: string, defaultValue: T) => T;
-  UserSelectSlot: TUserSelectSlot;
-};
+import { ReactNode } from "react";
+import { DeleteTaskButton } from "./delete-task-button";
+import { OwnerSelectParams, TasksRepository } from "../types";
+import ToggleTaskCheckbox from "./toggle-task-checkbox";
 
 export function TasksList({
-  saveToStorage,
-  getFromStorage,
-  UserSelectSlot,
-}: Props) {
-  const { addTask, tasks, toggleCheckTask, removeTask, updateOwner } = useTasks(
-    { saveToStorage, getFromStorage }
+  renderOwnerSelect,
+  tasksRepository,
+}: {
+  renderOwnerSelect: (params: OwnerSelectParams) => ReactNode;
+  tasksRepository: TasksRepository;
+}) {
+  const { addTask, removeTask, tasks, toggleCheckTask, updateOwner } = useTasks(
+    { tasksRepository }
   );
 
   return (
@@ -24,15 +23,19 @@ export function TasksList({
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
-          done={task.done}
           title={task.title}
-          onToggleDone={() => toggleCheckTask(task.id)}
-          onDelete={() => removeTask(task.id)}
-          userSelectSlot={
-            <UserSelectSlot
-              userId={task.ownerId}
-              onChangeUserId={(ownerId) => updateOwner(task.id, ownerId)}
-            />
+          actions={
+            <>
+              <ToggleTaskCheckbox
+                value={task.done}
+                onToggle={toggleCheckTask.bind(null, task.id)}
+              />
+              <DeleteTaskButton onClick={removeTask.bind(null, task.id)} />
+              {renderOwnerSelect({
+                ownerId: task.ownerId,
+                onChangeOwnerId: updateOwner.bind(null, task.id),
+              })}
+            </>
           }
         />
       ))}
