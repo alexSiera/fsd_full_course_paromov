@@ -1,19 +1,15 @@
-import { UserSelect } from "../../user/ui/user-select";
-
 export const TaskItem = ({
   title,
   done,
   onDelete,
   onToggleDone,
-  onChangeOwner,
-  ownerId,
+  userSelectSlot,
 }: {
   title: string;
   done: boolean;
-  ownerId?: string;
-  onChangeOwner: (ownerId: string) => void;
   onToggleDone: () => void;
   onDelete: () => void;
+  userSelectSlot: JSX.Element;
 }) => {
   return (
     <div style={{ display: "flex", gap: "10px", padding: "10px" }}>
@@ -22,7 +18,7 @@ export const TaskItem = ({
         done
       </label>
       <button onClick={() => onDelete()}>Delete task</button>
-      <UserSelect userId={ownerId} onChangeUserId={onChangeOwner} />
+      {userSelectSlot}
       <div>{title}</div>
     </div>
   );

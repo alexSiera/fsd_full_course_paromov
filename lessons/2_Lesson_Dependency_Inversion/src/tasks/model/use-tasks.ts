@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { saveToStorage, getFromStorage } from "../../lib/storage";
 import { nanoid } from "nanoid";
-
-type Task = {
-  id: string;
-  title: string;
-  done: boolean;
-  ownerId?: string;
-};
+import { Task } from "../../types";
 
 const STORAGE_KEY = "tasks";
-export function useTasks() {
+
+type Props = {
+  saveToStorage: (key: string, value: unknown) => void;
+  getFromStorage: <T>(key: string, defaultValue: T) => T;
+};
+
+export function useTasks({ getFromStorage, saveToStorage }: Props) {
   const [tasks, setTasks] = useState<Task[]>(() =>
     getFromStorage(STORAGE_KEY, [])
   );

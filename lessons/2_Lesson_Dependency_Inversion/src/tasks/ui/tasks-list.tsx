@@ -1,10 +1,22 @@
-import { TaskItem } from "./task-item";
+import { TUserSelectSlot } from "../../types";
 import { useTasks } from "../model/use-tasks";
 import { CreateTaskForm } from "./create-task-from";
+import { TaskItem } from "./task-item";
 
-export function TasksList() {
-  const { addTask, removeTask, tasks, toggleCheckTask, updateOwner } =
-    useTasks();
+type Props = {
+  saveToStorage: (key: string, value: unknown) => void;
+  getFromStorage: <T>(key: string, defaultValue: T) => T;
+  UserSelectSlot: TUserSelectSlot;
+};
+
+export function TasksList({
+  saveToStorage,
+  getFromStorage,
+  UserSelectSlot,
+}: Props) {
+  const { addTask, tasks, toggleCheckTask, removeTask, updateOwner } = useTasks(
+    { saveToStorage, getFromStorage }
+  );
 
   return (
     <div>
@@ -14,10 +26,14 @@ export function TasksList() {
           key={task.id}
           done={task.done}
           title={task.title}
-          ownerId={task.ownerId}
           onToggleDone={() => toggleCheckTask(task.id)}
           onDelete={() => removeTask(task.id)}
-          onChangeOwner={(ownerId) => updateOwner(task.id, ownerId)}
+          userSelectSlot={
+            <UserSelectSlot
+              userId={task.ownerId}
+              onChangeUserId={(ownerId) => updateOwner(task.id, ownerId)}
+            />
+          }
         />
       ))}
     </div>
