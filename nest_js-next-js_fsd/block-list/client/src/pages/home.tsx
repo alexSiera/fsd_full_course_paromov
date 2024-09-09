@@ -1,3 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+import { authControllerGetSessionInfo } from "../shared/api/generated";
+
 export function HomePage() {
-  return <div>Home Page</div>;
+  const { data } = useQuery({
+    queryKey: ["session"],
+    queryFn: () => authControllerGetSessionInfo(),
+  });
+  return <main>{data?.email}</main>;
 }

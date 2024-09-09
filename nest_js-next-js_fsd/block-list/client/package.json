@@ -7,15 +7,20 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "api:download": "wget http://localhost:3000/api-yaml -O ./src/shared/api"
+    "api:download": "curl -o ./src/shared/api/schema.yaml http://localhost:3000/api-yaml",
+    "api:generate": "orval",
+    "orval": "npm-run-all api:download api:generate"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.55.4",
     "axios": "^1.7.7",
     "next": "14.2.8",
+    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.53.0",
     "@types/node": "^22.5.4",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
