@@ -10,7 +10,7 @@ export function ToggleBlockingButton({}) {
   }
 
   const text = isBlockingEnabled ? "Disable Blocking" : "Enable Blocking";
-  const variant = isBlockingEnabled ? "primary" : "secondary";
+  const variant = !isBlockingEnabled ? "primary" : "secondary";
 
   return (
     <UiButton disabled={isLoading} variant={variant} onClick={toggleBlocking}>
