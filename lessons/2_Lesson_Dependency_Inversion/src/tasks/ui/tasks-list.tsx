@@ -1,6 +1,6 @@
 import { TaskItem } from "./task-item";
 import { useTasks } from "../model/use-tasks";
-import { CreateTaskForm } from "./create-task-from";
+import { CreateTaskForm } from "./create-task-form";
 import { ReactNode } from "react";
 import { DeleteTaskButton } from "./delete-task-button";
 import { OwnerSelectParams, TasksRepository } from "../types";
