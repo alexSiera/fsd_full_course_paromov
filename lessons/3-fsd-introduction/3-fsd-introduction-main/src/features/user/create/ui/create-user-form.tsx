@@ -13,20 +13,23 @@ export type CreateUserFormData = {
 
 export function CreateUserForm({ className }: { className?: string }) {
   const { createUser } = useUsers();
+
   const { control, reset, handleSubmit } = useForm<CreateUserFormData>({
     defaultValues: {
       name: "",
     },
   });
 
+  const onSubmit = (data: CreateUserFormData) => {
+    createUser?.(data);
+    reset();
+  };
+
   return (
     <div className={className}>
       <h2 className="text-lg mb-2 font-semibold">Добавить пользователя</h2>
       <form
-        onSubmit={handleSubmit((data) => {
-          createUser?.(data);
-          reset();
-        })}
+        onSubmit={handleSubmit(onSubmit)}
         className={clsx("flex flex-col gap-4")}
       >
         <Controller

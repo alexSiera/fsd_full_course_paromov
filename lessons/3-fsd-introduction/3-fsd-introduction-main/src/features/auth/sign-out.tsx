@@ -7,12 +7,9 @@ function useSignOut() {
 
 export function SignOutButton({ className }: { className?: string }) {
   const signOut = useSignOut();
+
   return (
-    <UiButton
-      className={className}
-      variant="secondary"
-      onClick={() => signOut()}
-    >
+    <UiButton className={className} variant="secondary" onClick={signOut}>
       Выйти
     </UiButton>
   );

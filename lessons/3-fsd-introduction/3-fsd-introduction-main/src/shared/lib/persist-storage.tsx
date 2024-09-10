@@ -8,6 +8,7 @@ export const persistStorage = {
   setItemSafe: <T,>(key: string, value: T) => {
     try {
       return setItem(key, value);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
       return Promise.resolve(null);
     }

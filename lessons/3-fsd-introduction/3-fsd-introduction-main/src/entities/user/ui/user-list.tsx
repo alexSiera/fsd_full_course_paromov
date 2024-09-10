@@ -9,6 +9,7 @@ export function UsersList({
   userActions?: (user: User) => ReactNode;
 }) {
   const { users } = useUsers();
+
   return (
     <div className="mt-10">
       <h2 className="text-lg mb-2 font-semibold">Все пользователи</h2>

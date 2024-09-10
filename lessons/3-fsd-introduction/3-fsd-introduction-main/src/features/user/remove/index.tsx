@@ -4,6 +4,7 @@ import { SVGProps } from "react";
 
 function useRemoveUser() {
   const { currentSesson, removeSession } = useSesson();
+
   const removeUser = useUsers((s) => s.removeUser);
 
   return async (userId: string) => {
@@ -17,6 +18,7 @@ function useRemoveUser() {
 
 export function RemoveUserButton({ userId }: { userId: string }) {
   const removeUser = useRemoveUser();
+
   return (
     <button onClick={() => removeUser(userId)}>
       <RemoveIcon className="w-8 h-8 text-rose-500" />

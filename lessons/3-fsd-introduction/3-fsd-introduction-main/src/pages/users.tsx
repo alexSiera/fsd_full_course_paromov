@@ -1,4 +1,4 @@
-import { UiCetnerContentLayout } from "@/shared/ui/layouts/ui-center-content-layout";
+import { UiCenterContentLayout } from "@/shared/ui/layouts/ui-center-content-layout";
 import { CreateUserForm } from "@/features/user/create";
 import { User, UsersList } from "@/entities/user";
 import { useCheckSingIn } from "@/features/auth/check-sign-in";
@@ -23,10 +23,10 @@ export function UsersPage() {
   };
 
   return (
-    <UiCetnerContentLayout className="py-10">
+    <UiCenterContentLayout className="py-10">
       <h1 className="text-3xl ">Пользователи</h1>
       <CreateUserForm className="mt-10" />
       <UsersList userActions={getUserActions} />
-    </UiCetnerContentLayout>
+    </UiCenterContentLayout>
   );
 }

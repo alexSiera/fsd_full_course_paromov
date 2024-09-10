@@ -1,3 +1,3 @@
 export function BoardsPage() {
-  return <div>Boards Page 1</div>;
+  return <div>Boards Page</div>;
 }

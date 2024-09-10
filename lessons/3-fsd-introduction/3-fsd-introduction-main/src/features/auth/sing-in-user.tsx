@@ -21,6 +21,7 @@ export function SignInUserButton({
   user: User;
 }) {
   const singInUser = useSignInUser();
+
   return (
     <UiButton
       className={className}

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { ReactNode } from "react";
 
-export function UiCetnerContentLayout({
+export function UiCenterContentLayout({
   children,
   className,
 }: {
@@ -12,7 +12,7 @@ export function UiCetnerContentLayout({
     <div
       className={clsx(
         "container mx-auto max-w-[600px] m-full px-10",
-        className,
+        className
       )}
     >
       {children}
