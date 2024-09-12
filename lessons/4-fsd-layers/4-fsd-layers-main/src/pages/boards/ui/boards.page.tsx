@@ -1,5 +1,5 @@
 import { CreateBoardButton, useCanCreateBoard } from "@/features/board/create";
-import { UiCetnerContentLayout } from "@/shared/ui/layouts/ui-center-content-layout";
+import { UiCenterContentLayout } from "@/shared/ui/layouts/ui-center-content-layout";
 import { BoardsList } from "./boards-list";
 
 export function BoardsPage() {
@@ -15,7 +15,7 @@ export function BoardsPage() {
   );
 
   return (
-    <UiCetnerContentLayout className="py-10">
+    <UiCenterContentLayout className="py-10">
       <h1 className="text-3xl ">Доски</h1>
       {canCreate ? (
         body
@@ -24,6 +24,6 @@ export function BoardsPage() {
           У вас нет прав для работы с этой страницей
         </div>
       )}
-    </UiCetnerContentLayout>
+    </UiCenterContentLayout>
   );
 }
